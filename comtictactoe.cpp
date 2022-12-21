@@ -27,7 +27,7 @@ class main_board
 public:
     bool won; // decides if the game ended
     // extra variables
-    int plc, val[2], c = 1, m, rand_num;
+    int plc, val[2], swap = 1, game_counter, rand_num;
     vector<int> x_nums; // applies all the coordinates "X" is taking
     vector<int> o_nums; // applies all the coordinates "O" is taking
     double val1;
@@ -123,7 +123,7 @@ public:
             cout << "𝗢 Won!" << endl;
             won = 1;
         }
-        else if (m == 10)
+        else if (game_counter == 10)
         {
             brd();
             space();
@@ -178,10 +178,10 @@ int main()
         myboard.space();
 
         // alternates the player
-        myboard.c = 1 - myboard.c;
+        myboard.swap = 1 - myboard.swap;
 
         // assigns characters to their chosen numbers that is being alternated by "c"
-        if (myboard.c == 0)
+        if (myboard.swap == 0)
         {
             myboard.txt = "X";
         }
@@ -201,7 +201,7 @@ int main()
         {
             myboard.o_move(sd);
         }
-        myboard.m++;
+        myboard.game_counter++;
 
         // if the number chosen is not a number in between 1 and 9, it will not count that move
         while (!cin || ((myboard.plc > 9) || (myboard.plc < 1)))
