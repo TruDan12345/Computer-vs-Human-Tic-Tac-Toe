@@ -1,7 +1,6 @@
 /*
   This is a game of tic-tac-toe that allows a person to play with a bot.
   The bot looks for good moves and applies them.
-
   Created by Daniel M Trushkov.
 */
 
@@ -17,7 +16,6 @@ using namespace std;
     using namespace std::chrono;
     sleep_for(nanoseconds(10));
     sleep_until(system_clock::now() + seconds(1));
-
     code snippet for system time delay
 **/
 
@@ -230,7 +228,7 @@ int main()
         }
 
         // after program check if the move is valid, it will assign the player to the chosen space
-        myboard.board[myboard.val[0]][myboard.val[1]] = myboard.plr[myboard.c];
+        myboard.board[myboard.val[0]][myboard.val[1]] = myboard.plr[myboard.swap];
         myboard.space();
 
         // checks who wins or if it's a tie
