@@ -1,6 +1,6 @@
 /*
   This is a game of tic-tac-toe that allows a person to play with a bot.
-  The bot looks for good moves and applies them.
+  The bot looks for defending or winning moves and applies them.
   Created by Daniel M Trushkov.
 */
 
@@ -129,21 +129,104 @@ public:
             won = 1;
         }
     }
-    void o_move(int& sd) // computer decision part of the game
+    void o_move(int &sd) // computer decision part of the game
     {
         using namespace std::this_thread; // sleep_for, sleep_until
         using namespace std::chrono;
         sleep_for(nanoseconds(10));
         sleep_until(system_clock::now() + seconds(1));
 
-        for (int i = 0; i < sd; i++)
+        // check row
+        for (int a = 0; a < 3; a++)
         {
-            do
+            for (int b = 0; b < 3; b++)
             {
-                rand_num = rand() % 9 + 1;
-                plc = rand_num;
-                valPos();
-            } while ((board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢"));
+                // (board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢") means spot is taken
+                if (((board[a][b] == board[a][b + 1]) || (board[a][b] == board[a][b - 1])) || (board[a][0] == board[a][2]) && !((board[a][b] == "𝗫") || (board[a][b] == "𝗢")))
+                {
+                    if (board[a][b] == board[a][b + 1])
+                    {
+                        board[a][3 - (b + (b + 1))] = "𝗢";
+                        break;
+                    }
+                    else if (board[a][b] == board[a][b - 1])
+                    {
+                        board[a][3 - (b + (b - 1))] = "𝗢";
+                        break;
+                    }
+                    else if (board[a][0] == board[a][2])
+                    {
+                        board[a][1] = "𝗢";
+                        break;
+                    }
+                }
+                else if (((board[b][a] == board[b + 1][a]) || (board[b][a] == board[b - 1][a])) || (board[0][a] == board[2][a]) && !((board[b][a] == "𝗫") || (board[b][a] == "𝗢")))
+                {
+                    if (board[b][a] == board[b + 1][a])
+                    {
+                        board[3 - (b + (b + 1))][a] = "𝗢";
+                        break;
+                    }
+                    else if (board[b][a] == board[b - 1][a])
+                    {
+                        board[3 - (b + (b - 1))][a] = "𝗢";
+                        break;
+                    }
+                    else if (board[0][a] == board[2][a])
+                    {
+                        board[1][a] = "𝗢";
+                        break;
+                    }
+                }
+                else if (((board[a][b] == board[a + 1][b + 1]) || (board[a][b] == board[a - 1][b - 1])) || (board[0][0] == board[2][2]) && !((board[a][b] == "𝗫") || (board[a][b] == "𝗢")))
+                {
+                    if (board[a][b] == board[a + 1][b + 1])
+                    {
+                        board[3 - (a + (a + 1))][3 - (b + (b + 1))] = "𝗢";
+                        break;
+                    }
+                    else if (board[a][b] == board[a - 1][b - 1])
+                    {
+                        board[3 - (a + (a - 1))][3 - (b + (b - 1))] = "𝗢";
+                        break;
+                    }
+                    else if (board[0][0] == board[2][2])
+                    {
+                        board[1][1] = "𝗢";
+                        break;
+                    }
+                }
+                else if ((board[a][b] == board[a + 1][b - 1]) || (board[a][b] == board[a - 1][b + 1]) || (board[2][0] == board[0][2]) && !((board[a][b] == "𝗫") || (board[a][b] == "𝗢")))
+                {
+                    if (board[a][b] == board[a + 1][b - 1])
+                    {
+                        board[3 - (a + (a + 1))][3 - (b + (b - 1))] = "𝗢";
+                        break;
+                    }
+                    else if (board[a][b] == board[a - 1][b + 1])
+                    {
+                        board[3 - (a + (a - 1))][3 - (b + (b + 1))] = "𝗢";
+                        break;
+                    }
+                    else if (board[2][0] == board[0][2])
+                    {
+                        board[1][1] = "𝗢";
+                        break;
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < sd; i++)
+                    {
+                        do
+                        {
+                            rand_num = rand() % 9 + 1;
+                            plc = rand_num;
+                            valPos();
+                        } while ((board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢"));
+                    }
+                }
+            }
         }
     }
 };
