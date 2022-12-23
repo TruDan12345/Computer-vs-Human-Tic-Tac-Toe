@@ -137,6 +137,8 @@ public:
         sleep_for(nanoseconds(10));
         sleep_until(system_clock::now() + seconds(1));
 
+        none = true;
+
         // check row
         for (int a = 0; a < 3; a++)
         {
@@ -148,14 +150,17 @@ public:
                     if (board[a][b] == board[a][b + 1])
                     {
                         board[a][3 - (b + (b + 1))] = "𝗢";
+                        none = false;
                     }
                     else if (board[a][b] == board[a][b - 1])
                     {
                         board[a][3 - (b + (b - 1))] = "𝗢";
+                        none = false;
                     }
                     else if (board[a][0] == board[a][2])
                     {
                         board[a][1] = "𝗢";
+                        none = false;
                     }
                 }
                 else if (((board[a][b] == board[a + 1][b]) || (board[a][b] == board[a - 1][b])) || (board[0][b] == board[2][b]) && ((board[a][b] != "𝗫") || (board[a][b] != "𝗢")))
@@ -163,14 +168,17 @@ public:
                     if (board[a][b] == board[a + 1][b])
                     {
                         board[3 - (a + (a + 1))][b] = "𝗢";
+                        none = false;
                     }
                     else if (board[a][b] == board[a - 1][b])
                     {
                         board[3 - (a + (a - 1))][b] = "𝗢";
+                        none = false;
                     }
                     else if (board[0][b] == board[2][b])
                     {
                         board[1][b] = "𝗢";
+                        none = false;
                     }
                 }
                 else if (((board[a][b] == board[a + 1][b + 1]) || (board[a][b] == board[a - 1][b - 1])) || (board[0][0] == board[2][2]) && ((board[a][b] != "𝗫") || (board[a][b] != "𝗢")))
@@ -178,14 +186,17 @@ public:
                     if (board[a][b] == board[a + 1][b + 1])
                     {
                         board[3 - (a + (a + 1))][3 - (b + (b + 1))] = "𝗢";
+                        none = false;
                     }
                     else if (board[a][b] == board[a - 1][b - 1])
                     {
                         board[3 - (a + (a - 1))][3 - (b + (b - 1))] = "𝗢";
+                        none = false;
                     }
                     else if (board[0][0] == board[2][2])
                     {
                         board[1][1] = "𝗢";
+                        none = false;
                     }
                 }
                 else if ((board[a][b] == board[a + 1][b - 1]) || (board[a][b] == board[a - 1][b + 1]) || (board[2][0] == board[0][2]) && ((board[a][b] != "𝗫") || (board[a][b] != "𝗢")))
@@ -193,14 +204,17 @@ public:
                     if (board[a][b] == board[a + 1][b - 1])
                     {
                         board[3 - (a + (a + 1))][3 - (b + (b - 1))] = "𝗢";
+                        none = false;
                     }
                     else if (board[a][b] == board[a - 1][b + 1])
                     {
                         board[3 - (a + (a - 1))][3 - (b + (b + 1))] = "𝗢";
+                        none = false;
                     }
                     else if (board[2][0] == board[0][2])
                     {
                         board[1][1] = "𝗢";
+                        none = false;
                     }
                 }
                 else if (none)
