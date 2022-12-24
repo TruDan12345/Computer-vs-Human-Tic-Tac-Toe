@@ -142,59 +142,66 @@ public:
             {
                 for (int b = 0; b < 3; b++)
                 {
-                    //(board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢") means spot is taken if 
-                    if ((board[a][b] == board[a][b + 1]) || (board[a][0] == board[a][2]))
+                    val[0] = 0, val[1] = 0;
+                    //(board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢") means spot is taken if
+                    if ((board[a][b] == board[a][b + 1]) || (board[a][0] == board[a][2]) && dont_apply == true)
                     {
                         if (board[a][b] == board[a][b + 1])
                         {
                             val[0] = a, val[1] = (3 - (b + (b + 1)));
                             dont_apply = false;
                         }
-                        else if (board[a][0] == board[a][2] && dont_apply == true) // ! else if
+                        else if (board[a][0] == board[a][2])
                         {
                             val[0] = a, val[1] = 1;
                             dont_apply = false;
                         }
                     }
-                    else if ((board[a][b] == board[a + 1][b]) || (board[0][b] == board[2][b]))
+                    else if ((board[a][b] == board[a + 1][b]) || (board[0][b] == board[2][b]) && dont_apply == true)
                     {
-                        if (board[a][b] == board[a + 1][b] && dont_apply == true)
+                        if (board[a][b] == board[a + 1][b])
                         {
                             val[0] = (3 - (a + (a + 1))), val[1] = b;
                             dont_apply = false;
                         }
-                        else if (board[0][b] == board[2][b] && dont_apply == true)
+                        else if (board[0][b] == board[2][b])
                         {
                             val[0] = 1, val[1] = b;
                             dont_apply = false;
                         }
                     }
-                    else if ((board[a][a] == board[a + 1][a + 1]) || (board[0][0] == board[2][2]))
+                    else if ((board[a][a] == board[a + 1][a + 1]) || (board[a][a] == board[a - 1][a - 1]) || (board[0][0] == board[2][2]) && dont_apply == true)
                     {
-                        if (board[a][a] == board[a + 1][a + 1] && dont_apply == true)
+                        if (board[a][a] == board[a + 1][a + 1])
                         {
                             val[0] = (3 - (a + (a + 1))), val[1] = (3 - (a + (a + 1)));
                             dont_apply = false;
                         }
-                        else if (board[0][0] == board[2][2] && dont_apply == true)
+                        if (board[a][a] == board[a - 1][a - 1])
+                        {
+                            val[0] = (3 - (a + (a - 1))), val[1] = (3 - (a + (a - 1)));
+                            dont_apply = false;
+                        }
+                        else if (board[0][0] == board[2][2])
                         {
                             val[0] = 1, val[1] = 1;
                             dont_apply = false;
                         }
                     }
-                    else if ((board[a][a] == board[a + 1][a - 1]) || (board[a][a] == board[a - 1][a + 1]) || (board[2][0] == board[0][2]))
+                    // check diagnal 2nd position
+                    else if ((board[a][a] == board[a + 1][a - 1]) || (board[a][a] == board[a - 1][a + 1]) || (board[2][0] == board[0][2]) && dont_apply == true)
                     {
-                        if (board[a][a] == board[a + 1][a - 1] && dont_apply == true)
+                        if (board[a][a] == board[a + 1][a - 1] && ((board[a][a] != "𝗫") || (board[a][a] != "𝗢")))
                         {
                             val[0] = 0, val[1] = 2;
                             dont_apply = false;
                         }
-                        else if (board[a][a] == board[a - 1][a + 1] && dont_apply == true)
+                        else if (board[a][a] == board[a - 1][a + 1] && ((board[a][a] != "𝗫") || (board[a][a] != "𝗢")))
                         {
                             val[0] = 2, val[1] = 0;
                             dont_apply = false;
                         }
-                        else if (board[2][0] == board[0][2] && dont_apply == true)
+                        else if (board[2][0] == board[0][2])
                         {
                             val[0] = 1, val[1] = 1;
                             dont_apply = false;
