@@ -184,13 +184,15 @@ public:
                     }
                     else if ((board[a][a] == board[a + 1][a - 1]) || (board[a][a] == board[a - 1][a + 1]) || (board[2][0] == board[0][2]))
                     {
-                        if (board[a][a] == board[a + 1][a - 1])
+                        if (board[a][a] == board[a + 1][a - 1] && dont_apply == true)
                         {
                             val[0] = 0, val[1] = 2;
+                            dont_apply = false;
                         }
-                        else if (board[a][a] == board[a - 1][a + 1])
+                        else if (board[a][a] == board[a - 1][a + 1] && dont_apply == true)
                         {
                             val[0] = 2, val[1] = 0;
+                            dont_apply = false;
                         }
                         else if (board[2][0] == board[0][2] && dont_apply == true)
                         {
