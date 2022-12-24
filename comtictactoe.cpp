@@ -197,24 +197,21 @@ public:
                     }
                     dont_apply = false;
                 }
-                else if ((board[a][a] == board[a + 1][a + 1]) || (board[0][0] == board[2][2]))
+                else if ((board[0][0] == board[1][1]) || (board[2][2] == board[1][1]) || (board[0][0] == board[2][2]))
                 {
-                    if (a == 1)
+                    if ((board[0][0] == board[1][1]) && ((board[2][2] != "𝗫") || (board[2][2] != "𝗢")))
                     {
-                        num = 0;
+                        val[0] = 2, val[1] = 2;
                     }
-                    else if (a == 0)
+                    else if ((board[2][2] == board[1][1]) && ((board[0][0] != "𝗫") || (board[0][0] != "𝗢")))
                     {
-                        num = 2;
-                    }
-                    if ((board[a][a] == board[a + 1][a + 1]) && ((board[0][2] != "𝗫") || (board[0][2] != "𝗢")))
-                    {
-                        val[0] = num, val[1] = num;
+                        val[0] = 0, val[1] = 0;
                     }
                     else if ((board[0][0] == board[2][2]) && ((board[1][1] != "𝗫") || (board[1][1] != "𝗢")))
                     {
                         val[0] = 1, val[1] = 1;
                     }
+                     dont_apply = false;
                 }
                 else if (dont_apply == true)
                 {
@@ -222,9 +219,11 @@ public:
                     {
                         for (int i = 0; i < sd; i++)
                         {
-                            rand_num = rand() % 9 + 1;
-                            plc = rand_num;
-                            valPos();
+                            val[0] = rand() % 2 + 1;
+                            val[1] = rand() % 2 + 1;
+                            // rand_num = rand() % 9 + 1;
+                            // plc = rand_num;
+                            // valPos();
                         }
                     } while ((board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢"));
                 }
