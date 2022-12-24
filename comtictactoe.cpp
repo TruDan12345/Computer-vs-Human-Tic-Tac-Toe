@@ -25,7 +25,7 @@ class main_board
 public:
     bool won; // decides if the game ended
     // extra variables
-    int plc, val[2], swap = 1, game_counter, rand_num;
+    int plc, val[2], swap = 1, game_counter, rand_num[2];
     vector<int> x_nums; // applies all the coordinates "X" is taking
     vector<int> o_nums; // applies all the coordinates "O" is taking
     double val1;
@@ -135,88 +135,85 @@ public:
         using namespace std::chrono;
         sleep_for(nanoseconds(10));
         sleep_until(system_clock::now() + seconds(1));
-
-        // check row
-        for (int a = 0; a < 3; a++)
+        do
         {
-            for (int b = 0; b < 3; b++)
+            // check row
+            for (int a = 0; a < 3; a++)
             {
-                // (board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢") means spot is taken
-                if (((board[a][b] == board[a][b + 1]) || (board[a][b] == board[a][b - 1])) || (board[a][0] == board[a][2]))
+                for (int b = 0; b < 3; b++)
                 {
-                    if ((board[a][b] == board[a][b + 1]) && ((board[a][3 - (b + (b + 1))] != "𝗢") || (board[a][3 - (b + (b + 1))] != "𝗫")))
+                    // (board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢") means spot is taken
+                    if (((board[a][b] == board[a][b + 1]) || (board[a][b] == board[a][b - 1])) || (board[a][0] == board[a][2]))
                     {
-                        board[a][3 - (b + (b + 1))] = "𝗢";
-                    }
-                    else if ((board[a][b] == board[a][b - 1]) && ((board[a][3 - (b + (b - 1))] != "𝗢") || (board[a][3 - (b + (b - 1))] != "𝗫")))
-                    {
-                        board[a][3 - (b + (b - 1))] = "𝗢";
-                    }
-                    else if ((board[a][0] == board[a][2]) && ((board[a][1] != "𝗢") || (board[a][1] != "𝗫")))
-                    {
-                        board[a][1] = "𝗢";
-                    }
-                }
-                else if (((board[b][a] == board[b + 1][a]) || (board[b][a] == board[b - 1][a])) || (board[0][a] == board[2][a]))
-                {
-                    if ((board[b][a] == board[b + 1][a]) && ((board[3 - (b + (b + 1))][a] != "𝗢") || (board[3 - (b + (b + 1))][a] != "𝗫")))
-                    {
-                        board[3 - (b + (b + 1))][a] = "𝗢";
-                    }
-                    else if ((board[b][a] == board[b - 1][a]) && ((board[3 - (b + (b - 1))][a] != "𝗢") || (board[3 - (b + (b - 1))][a] != "𝗫")))
-                    {
-                        board[3 - (b + (b - 1))][a] = "𝗢";
-                    }
-                    else if ((board[0][a] == board[2][a]) && ((board[1][a] != "𝗢") || (board[1][a] != "𝗫")))
-                    {
-                        board[1][a] = "𝗢";
-                    }
-                }
-                else if (((board[a][b] == board[a + 1][b + 1]) || (board[a][b] == board[a - 1][b - 1])) || (board[0][0] == board[2][2]))
-                {
-                    if ((board[a][b] == board[a + 1][b + 1]) && (board[3 - (a + (a + 1))][3 - (b + (b + 1))] != "𝗢") || (board[3 - (a + (a + 1))][3 - (b + (b + 1))] != "𝗫"))
-                    {
-                        board[3 - (a + (a + 1))][3 - (b + (b + 1))] = "𝗢";
-                    }
-                    else if ((board[a][b] == board[a - 1][b - 1]) && (board[3 - (a + (a - 1))][3 - (b + (b - 1))] != "𝗢") || (board[3 - (a + (a - 1))][3 - (b + (b - 1))] != "𝗫"))
-                    {
-                        board[3 - (a + (a - 1))][3 - (b + (b - 1))] = "𝗢";
-                    }
-                    else if ((board[0][0] == board[2][2]) && ((board[1][1] != "𝗢") || (board[1][1] != "𝗫")))
-                    {
-                        board[1][1] = "𝗢";
-                    }
-                }
-                else if ((board[a][b] == board[a + 1][b - 1]) || (board[a][b] == board[a - 1][b + 1]) || (board[2][0] == board[0][2]))
-                {
-                    if ((board[a][b] == board[a + 1][b - 1]) && ((board[3 - (a + (a + 1))][3 - (b + (b - 1))] != "𝗢") || (board[3 - (a + (a + 1))][3 - (b + (b - 1))] != "𝗫")))
-                    {
-                        board[3 - (a + (a + 1))][3 - (b + (b - 1))] = "𝗢";
-                    }
-                    else if ((board[a][b] == board[a - 1][b + 1]) && ((board[3 - (a + (a - 1))][3 - (b + (b + 1))] != "𝗢") || (board[3 - (a + (a - 1))][3 - (b + (b + 1))] != "𝗫")))
-                    {
-                        board[3 - (a + (a - 1))][3 - (b + (b + 1))] = "𝗢";
-                    }
-                    else if ((board[2][0] == board[0][2]) && ((board[1][1] != "𝗢") || (board[1][1] != "𝗫")))
-                    {
-                        board[1][1] = "𝗢";
-                        break;
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < sd; i++)
-                    {
-                        do
+                        if (board[a][b] == board[a][b + 1])
                         {
-                            rand_num = rand() % 9 + 1;
-                            plc = rand_num;
-                            valPos();
-                        } while ((board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢"));
+                            val[0] = a, val[1] = (3 - (b + (b + 1)));
+                        }
+                        else if (board[a][b] == board[a][b - 1])
+                        {
+                            val[0] = a, val[1] = (3 - (b + (b - 1)));
+                        }
+                        else if (board[a][0] == board[a][2])
+                        {
+                            val[0] = a, val[1] = 1;
+                        }
+                    }
+                    else if (((board[b][a] == board[b + 1][a]) || (board[b][a] == board[b - 1][a])) || (board[0][a] == board[2][a]))
+                    {
+                        if (board[b][a] == board[b + 1][a])
+                        {
+                            val[0] = (3 - (b + (b + 1))), val[1] = a;
+                        }
+                        else if (board[b][a] == board[b - 1][a])
+                        {
+                            val[0] = (3 - (b + (b - 1))), val[1] = a;
+                        }
+                        else if (board[0][a] == board[2][a])
+                        {
+                            val[0] = 1, val[1] = a;
+                        }
+                    }
+                    else if (((board[a][b] == board[a + 1][b + 1]) || (board[a][b] == board[a - 1][b - 1])) || (board[0][0] == board[2][2]))
+                    {
+                        if (board[a][b] == board[a + 1][b + 1])
+                        {
+                            val[0] = (3 - (a + (a + 1))), val[1] = (3 - (b + (b + 1)));
+                        }
+                        else if (board[a][b] == board[a - 1][b - 1])
+                        {
+                            val[0] = (3 - (a + (a - 1))), val[1] = (3 - (b + (b - 1)));
+                        }
+                        else if (board[0][0] == board[2][2])
+                        {
+                            val[0] = 1, val[1] = 1;
+                        }
+                    }
+                    else if ((board[a][b] == board[a + 1][b - 1]) || (board[a][b] == board[a - 1][b + 1]) || (board[2][0] == board[0][2]))
+                    {
+                        if (board[a][b] == board[a + 1][b - 1])
+                        {
+                            val[0] = (3 - (a + (a + 1))), val[1] = (3 - (b + (b - 1)));
+                        }
+                        else if (board[a][b] == board[a - 1][b + 1])
+                        {
+                            val[0] = (3 - (a + (a - 1))), val[1] = (3 - (b + (b + 1)));
+                        }
+                        else if (board[2][0] == board[0][2])
+                        {
+                            val[0] = 1, val[1] = 1;
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < sd; i++)
+                        {
+                            val[0] = rand() % 3 + 0;
+                            val[1] = rand() % 3 + 0;
+                        }
                     }
                 }
             }
-        }
+        } while ((board[val[0]][val[1]] == "𝗫") || (board[val[0]][val[1]] == "𝗢"));
     }
 };
 int main()
@@ -266,6 +263,7 @@ int main()
 
             cout << "Position: ";
             cin >> myboard.plc; // lets user type in interface
+            myboard.valPos();
         }
         else // computer can only make this move
         {
@@ -284,7 +282,6 @@ int main()
             cout << "Position: ";
             cin >> myboard.plc;
         }
-        myboard.valPos();
 
         // if same space was chosen, it will not count that move
         while ((myboard.board[myboard.val[0]][myboard.val[1]] == "𝗫") || (myboard.board[myboard.val[0]][myboard.val[1]] == "𝗢"))
