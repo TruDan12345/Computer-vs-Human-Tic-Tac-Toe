@@ -130,10 +130,11 @@ public:
     }
     void o_move(int &sd) // computer decision part of the game
     {
-        // using namespace std::this_thread; // sleep_for, sleep_until
-        // using namespace std::chrono;
-        // sleep_for(nanoseconds(10));
-        // sleep_until(system_clock::now() + seconds(1));
+        using namespace std::this_thread; // sleep_for, sleep_until
+        using namespace std::chrono;
+        sleep_for(nanoseconds(10));
+        sleep_until(system_clock::now() + seconds(1));
+        
         dont_apply = true;
         for (int a = 0; a < 3; a++)
         {
