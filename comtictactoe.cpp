@@ -182,17 +182,15 @@ public:
                             dont_apply = false;
                         }
                     }
-                    else if ((board[a][b] == board[a + 1][b - 1]) || (board[a][b] == board[a - 1][b + 1]) || (board[2][0] == board[0][2]))
+                    else if ((board[a][a] == board[a + 1][a - 1]) || (board[a][a] == board[a - 1][a + 1]) || (board[2][0] == board[0][2]))
                     {
-                        if (board[a][b] == board[a + 1][b - 1] && dont_apply == true)
+                        if (board[a][a] == board[a + 1][a - 1])
                         {
-                            val[0] = (3 - (a + (a + 1))), val[1] = (3 - (b + (b - 1)));
-                            dont_apply = false;
+                            val[0] = 0, val[1] = 2;
                         }
-                        else if (board[a][b] == board[a - 1][b + 1] && dont_apply == true)
+                        else if (board[a][a] == board[a - 1][a + 1])
                         {
-                            val[0] = (3 - (a + (a - 1))), val[1] = (3 - (b + (b + 1)));
-                            dont_apply = false;
+                            val[0] = 2, val[1] = 0;
                         }
                         else if (board[2][0] == board[0][2] && dont_apply == true)
                         {
